@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useApp } from "@/contexts/AppContext";
 import { useLocation, useNavigate } from "react-router-dom";
-import * as authService from "@/services/authService";
 
 export default function Login() {
   const { login, register, currentUser, theme, setTheme } = useApp();
@@ -30,7 +29,12 @@ export default function Login() {
     e.preventDefault();
     setError("");
     if (mode === "register") {
-      if (!name.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
+      if (
+        !name.trim() ||
+        !email.trim() ||
+        !password.trim() ||
+        !confirmPassword.trim()
+      ) {
         setError("Vui lòng điền đầy đủ thông tin");
         return;
       }
@@ -63,7 +67,11 @@ export default function Login() {
             <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600" />
             <div>
               <h1 className="text-lg font-bold">TodoPro</h1>
-              <p className="text-xs text-slate-500 -mt-0.5">{mode === "login" ? "Đăng nhập để tiếp tục" : "Tạo tài khoản mới"}</p>
+              <p className="text-xs text-slate-500 -mt-0.5">
+                {mode === "login"
+                  ? "Đăng nhập để tiếp tục"
+                  : "Tạo tài khoản mới"}
+              </p>
             </div>
           </div>
           <button
@@ -72,12 +80,22 @@ export default function Login() {
             aria-label="Toggle theme"
           >
             {theme === "dark" ? (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-                <path d="M21.64 13A9 9 0 1 1 11 2.36 7 7 0 0 0 21.64 13z"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path d="M21.64 13A9 9 0 1 1 11 2.36 7 7 0 0 0 21.64 13z" />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
               </svg>
             )}
           </button>
@@ -122,14 +140,28 @@ export default function Login() {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300"
               >
                 {showPassword ? (
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-                    <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.5 12c0-1.5-3-5.5-10.5-5.5S1.5 10.5 1.5 12s3 5.5 10.5 5.5S22.5 13.5 22.5 12z"/>
-                    <path d="M12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path d="M3.53 2.47a.75.75 0 00-1.06 1.06l18 18a.75.75 0 101.06-1.06l-18-18zM22.5 12c0-1.5-3-5.5-10.5-5.5S1.5 10.5 1.5 12s3 5.5 10.5 5.5S22.5 13.5 22.5 12z" />
+                    <path d="M12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
                   </svg>
                 ) : (
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
-                    <path d="M12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z"/>
-                    <path fillRule="evenodd" d="M1.5 12a10.5 10.5 0 1118 0 10.5 10.5 0 01-18 0zM12 3.75a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z" clipRule="evenodd"/>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path d="M12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
+                    <path
+                      fillRule="evenodd"
+                      d="M1.5 12a10.5 10.5 0 1118 0 10.5 10.5 0 01-18 0zM12 3.75a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 )}
               </button>
@@ -137,7 +169,9 @@ export default function Login() {
           </div>
           {mode === "register" && (
             <div>
-              <label className="block text-sm font-medium mb-1">Xác nhận mật khẩu</label>
+              <label className="block text-sm font-medium mb-1">
+                Xác nhận mật khẩu
+              </label>
               <input
                 type={showPassword ? "text" : "password"}
                 value={confirmPassword}
@@ -148,7 +182,10 @@ export default function Login() {
             </div>
           )}
           {error && <p className="text-sm text-rose-600">{error}</p>}
-          <button type="submit" className="w-full h-11 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
+          <button
+            type="submit"
+            className="w-full h-11 rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
+          >
             {mode === "login" ? "Đăng nhập" : "Đăng ký"}
           </button>
         </form>
@@ -177,11 +214,7 @@ export default function Login() {
               </>
             )}
           </p>
-          <p className="text-xs text-slate-400 mt-2">
-            💡 Đảm bảo backend đang chạy tại http://localhost:4000
-          </p>
         </div>
-
       </div>
     </div>
   );
