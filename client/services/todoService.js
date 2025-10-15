@@ -18,6 +18,21 @@ const apiCall = async (endpoint, options = {}) => {
       mode: "cors",
     });
 
+    // Handle unauthorized/forbidden globally
+    if (res.status === 401 || res.status === 403) {
+      try {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData');
+        localStorage.removeItem('userId');
+      } catch {}
+      // Redirect to login preserving current path
+      const loginUrl = '/login';
+      if (window.location.pathname !== '/login') {
+        window.location.replace(loginUrl);
+      }
+      throw new Error(res.status === 401 ? 'Unauthorized' : 'Forbidden');
+    }
+
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok) throw new Error(data.message || `Error ${res.status}`);

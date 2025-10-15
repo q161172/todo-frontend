@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useApp } from "@/contexts/AppContext";
+import DateTimePicker from "./DateTimePicker";
 
 export default function TodoForm() {
   const { addTodo } = useApp();
@@ -44,11 +45,10 @@ export default function TodoForm() {
           placeholder="Mô tả"
           className="md:col-span-2 h-11 rounded-md border border-slate-300 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
-        <input
-          type="date"
+        <DateTimePicker
           value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-          className="h-11 rounded-md border border-slate-300 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 px-3 text-sm"
+          onChange={setDueDate}
+          className=""
         />
       </div>
       <div className="flex items-center justify-end">

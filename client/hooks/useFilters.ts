@@ -9,7 +9,7 @@ export const useFilters = (currentUser = null) => {
 
   // Fetch todos từ server với current filters
   const fetchTodos = useCallback(async () => {
-    // Chỉ fetch khi có user đã login
+  // Chỉ fetch khi có user đã login
     if (!currentUser) {
       setTodos([]);
       return;
@@ -22,7 +22,7 @@ export const useFilters = (currentUser = null) => {
       const data = await getTodos(filters);
       setTodos(data);
     } catch (err) {
-      console.error('❌ Error fetching todos:', err);
+      console.error('Error fetching todos:', err);
       setError(err.message);
     } finally {
       setLoading(false);

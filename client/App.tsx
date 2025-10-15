@@ -6,7 +6,6 @@ import { useApp } from "./contexts/AppContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
-// Register page merged into Login via toggle; keep route for deep-links
 
 function RequireAuth({ children }) {
   const { currentUser } = useApp();

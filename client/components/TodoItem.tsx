@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useApp } from "@/contexts/AppContext";
+import DateTimePicker from "./DateTimePicker";
 
 function PriorityBadge({ value }) {
   const map = {
@@ -21,7 +22,7 @@ export default function TodoItem({ todo }) {
   const [title, setTitle] = useState(todo.title);
   const [description, setDescription] = useState(todo.description || "");
   const [priority, setPriority] = useState(todo.priority);
-  const [dueDate, setDueDate] = useState(todo.dueDate ? todo.dueDate.slice(0, 10) : "");
+  const [dueDate, setDueDate] = useState(todo.dueDate ? todo.dueDate.slice(0, 16) : "");
 
   const overdue = todo.dueDate && !todo.completed && new Date(todo.dueDate) < new Date();
 
@@ -31,7 +32,7 @@ export default function TodoItem({ todo }) {
   };
 
   return (
-    <div className={`group rounded-xl border ${overdue ? "border-rose-300 dark:border-rose-700" : "border-slate-200 dark:border-slate-800"} bg-white/80 dark:bg-slate-900/80 p-4 shadow-sm hover:shadow-md transition`}>        
+    <div className={`group rounded-xl border ${overdue ? "border-rose-300 dark:border-rose-700" : "border-slate-200 dark:border-slate-800"} bg-white/80 dark:bg-slate-900/80 p-4 shadow-sm hover:shadow-md transition`}>
       <div className="flex items-start gap-3">
         <input
           type="checkbox"
@@ -59,7 +60,21 @@ export default function TodoItem({ todo }) {
                 <p className={`text-sm ${todo.completed ? "line-through text-slate-400" : "text-slate-600 dark:text-slate-300"}`}>{todo.description}</p>
               )}
               {todo.dueDate && (
-                <p className="text-xs text-slate-500">Hạn: {new Date(todo.dueDate).toLocaleDateString()}</p>
+                <div className="text-xs text-slate-500 space-y-1">
+                  <p>Hạn: {new Date(todo.dueDate).toLocaleString('vi-VN', { 
+                    year: 'numeric', 
+                    month: '2-digit', 
+                    day: '2-digit', 
+                    hour: '2-digit', 
+                    minute: '2-digit',
+                    hour12: false 
+                  })}</p>
+                  {todo.timeRemaining && (
+                    <p className="text-indigo-600 dark:text-indigo-400 font-medium">
+                      Còn {todo.timeRemaining.days} ngày {todo.timeRemaining.hours} giờ {todo.timeRemaining.minutes} phút
+                    </p>
+                  )}
+                </div>
               )}
             </>
           ) : (
@@ -72,7 +87,7 @@ export default function TodoItem({ todo }) {
                   <option value="medium">Trung bình</option>
                   <option value="low">Thấp</option>
                 </select>
-                <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} className="h-9 rounded-md border border-slate-300 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 px-2 text-sm" />
+                <DateTimePicker value={dueDate} onChange={setDueDate} small />
               </div>
             </div>
           )}
